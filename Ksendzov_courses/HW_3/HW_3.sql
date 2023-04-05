@@ -128,49 +128,103 @@ WHERE  r.role_name IS NOT NULL AND e.employee_name IS NOT NULL;
 SELECT e.employee_name, r.role_name 
 FROM  employees e FULL JOIN roles_employee re ON e.id = re.employee_id 
 			FULL JOIN roles r ON r.id = re.role_id 
-WHERE  r.role_name like  '%Java%' AND e.employee_name IS NOT NULL
+WHERE  r.role_name like  '%Java%' AND e.employee_name IS NOT NULL;
  
 --8. Вывести имена и должность только Python разработчиков.
  SELECT e.employee_name, r.role_name 
 FROM  employees e FULL JOIN roles_employee re ON e.id = re.employee_id 
 			FULL JOIN roles r ON r.id = re.role_id 
-WHERE  r.role_name like  '%Python%' AND e.employee_name IS NOT NULL
+WHERE  r.role_name like  '%Python%' AND e.employee_name IS NOT NULL;
 
 --9. Вывести имена и должность всех QA инженеров.
 SELECT e.employee_name, r.role_name 
 FROM  employees e FULL JOIN roles_employee re ON e.id = re.employee_id 
 			FULL JOIN roles r ON r.id = re.role_id 
-WHERE  r.role_name like  '%QA%' AND e.employee_name IS NOT NULL
+WHERE  r.role_name like  '%QA%' AND e.employee_name IS NOT NULL;
  
 --10. Вывести имена и должность ручных QA инженеров.
 SELECT e.employee_name, r.role_name 
 FROM  employees e FULL JOIN roles_employee re ON e.id = re.employee_id 
 			FULL JOIN roles r ON r.id = re.role_id 
-WHERE  r.role_name like  '%Manual%QA%' AND e.employee_name IS NOT NULL
+WHERE  r.role_name like  '%Manual%QA%' AND e.employee_name IS NOT NULL;
  
 --11. Вывести имена и должность автоматизаторов QA
 SELECT e.employee_name, r.role_name 
 FROM  employees e FULL JOIN roles_employee re ON e.id = re.employee_id 
 			FULL JOIN roles r ON r.id = re.role_id 
-WHERE  r.role_name like  '%Automation%QA%' AND e.employee_name IS NOT NULL
+WHERE  r.role_name like  '%Automation%QA%' AND e.employee_name IS NOT NULL;
 
 --12. Вывести имена и зарплаты Junior специалистов
+SELECT e.employee_name, s.monthly_salary 
+FROM  employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id  
+WHERE  r.role_name like  '%Junior%' AND e.employee_name IS NOT NULL AND s.monthly_salary IS NOT NULL;
  
 --13. Вывести имена и зарплаты Middle специалистов
+SELECT e.employee_name, s.monthly_salary 
+FROM  employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id  
+WHERE  r.role_name like  '%Middle%' AND e.employee_name IS NOT NULL AND s.monthly_salary IS NOT NULL;
  
 --14. Вывести имена и зарплаты Senior специалистов
+SELECT e.employee_name, s.monthly_salary 
+FROM  employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id  
+WHERE  r.role_name like  '%Senior%' AND e.employee_name IS NOT NULL AND s.monthly_salary IS NOT NULL;
  
 --15. Вывести зарплаты Java разработчиков
+SELECT s.monthly_salary, r.role_name  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Java%' AND s.monthly_salary IS NOT NULL;
  
 --16. Вывести зарплаты Python разработчиков
+SELECT s.monthly_salary, r.role_name  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Python%' AND s.monthly_salary IS NOT NULL;
  
 --17. Вывести имена и зарплаты Junior Python разработчиков
+SELECT e.employee_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Junior%Python%' AND s.monthly_salary IS NOT NULL;
  
 --18. Вывести имена и зарплаты Middle JS разработчиков
+SELECT e.employee_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Middle%JavaScript%' AND s.monthly_salary IS NOT NULL;
  
 --19. Вывести имена и зарплаты Senior Java разработчиков
+SELECT e.employee_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Senior%Java%' AND s.monthly_salary IS NOT NULL;
  
 --20. Вывести зарплаты Junior QA инженеров
+SELECT s.monthly_salary, r.role_name  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Junior%QA%' AND s.monthly_salary IS NOT NULL;
  
 --21. Вывести среднюю зарплату всех Junior специалистов
  
