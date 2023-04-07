@@ -85,6 +85,10 @@ SELECT * FROM roles;
 SELECT * FROM roles_employee;
 SELECT * FROM employee_salary;
 SELECT * FROM employees;
+SELECT e.employee_name, s.monthly_salary, r.role_name  FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id;
 
 
 
@@ -227,16 +231,105 @@ FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id
 WHERE r.role_name like  '%Junior%QA%' AND s.monthly_salary IS NOT NULL;
  
 --21. Вывести среднюю зарплату всех Junior специалистов
- 
+SELECT  avg(s.monthly_salary)
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Junior%';
+
 --22. Вывести сумму зарплат JS разработчиков
+SELECT  sum(s.monthly_salary)
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%JavaScript%';
  
 -- 23. Вывести минимальную ЗП QA инженеров
+SELECT  min(s.monthly_salary)
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%QA engineer%';
+
 -- 24. Вывести максимальную ЗП QA инженеров
+SELECT  max(s.monthly_salary) as "максимальная ЗП QA инженеров"
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%QA engineer%';
+
 -- 25. Вывести количество QA инженеров
+SELECT  count(r.role_name) as "количество QA инженеров"
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%QA engineer%';
+
 -- 26. Вывести количество Middle специалистов.
+SELECT  count(r.role_name) as "количество Middle специалистов"
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%Middle%';
+
 -- 27. Вывести количество разработчиков
+SELECT  count(*) as "количество разработчиков"
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%developer%';		
+
 -- 28. Вывести фонд (сумму) зарплаты разработчиков.
+SELECT  sum(s.monthly_salary) as "Фонд зарплат разработчиков"
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE r.role_name like  '%developer%';
+
 -- 29. Вывести имена, должности и ЗП всех специалистов по возрастанию
+SELECT  e.employee_name, r.role_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE e.employee_name IS NOT NULL AND r.role_name IS NOT NULL AND s.monthly_salary IS NOT NULL			
+ORDER BY s.monthly_salary;
+
 -- 30. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП от 1700 до 2300
+SELECT  e.employee_name, r.role_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE e.employee_name IS NOT NULL AND r.role_name IS NOT NULL AND s.monthly_salary IS NOT NULL 
+					  AND s.monthly_salary BETWEEN 1700 AND  2300  	
+ORDER BY s.monthly_salary;
+
 -- 31. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП меньше 2300
+SELECT  e.employee_name, r.role_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE e.employee_name IS NOT NULL AND r.role_name IS NOT NULL AND s.monthly_salary IS NOT NULL 
+					  AND s.monthly_salary < 2300  	
+ORDER BY s.monthly_salary;
+
 -- 32. Вывести имена, должности и ЗП всех специалистов по возрастанию у специалистов у которых ЗП равна 1100, 1500, 2000
+SELECT  e.employee_name, r.role_name, s.monthly_salary  
+FROM employees e FULL JOIN employee_salary es  ON e.id = es.employee_id 
+			FULL JOIN salary s  ON  es.salary_id = s.id
+			FULL JOIN roles_employee re ON e.id = re.employee_id 
+			FULL JOIN roles r ON r.id = re.role_id
+WHERE e.employee_name IS NOT NULL AND r.role_name IS NOT NULL AND s.monthly_salary IS NOT NULL 
+					  AND s.monthly_salary IN (1100, 1500, 2000) 	
+ORDER BY s.monthly_salary;
+
